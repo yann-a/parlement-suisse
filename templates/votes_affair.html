@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+Votes by affair
+{% endblock %}
+
+{% block activate_votes_affairs %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">Votes</li>
+        <li class="breadcrumb-item"><a href="/votes/affairs">Affaires</a></li>
+        <li class="breadcrumb-item"><a href="/votes/affairs/{{period}}">{{period}}e législature</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{affair.title}}</li>
+    </ol>
+</nav>
+
+<h3>{{affair.title}}</h3>
+<ul>
+    {% for prop in affair %}
+        {% if prop != 'affairVotes' %}
+        <li><b>{{prop}}: </b> {{affair[prop]}}</li>
+        {% endif %}
+    {% endfor %}
+    <li><b>Votes: </b>
+        <ul>
+            {% for vote in affair.affairVotes %}
+            <li><b>{{vote.id}}: </b>
+                <ul>
+                    {% for councillor in vote.councillorVotes %}
+                        <li><b>{{councillor.firstName}} {{councillor.lastName}}: </b>
+                            <ul>
+                            {% for prop in councillor %}
+                                <li><b>{{prop}}: </b> {{councillor[prop]}}</li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+{% endblock %}

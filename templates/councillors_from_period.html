@@ -20,7 +20,7 @@ active
 <ul>
 {% for councillor in councillors %}
     <li id="{{councillor.id}}">
-        <b style="font-size: 25px;">{{councillor.firstName}} {{councillor.lastName}}</b> · <a href="/councillor/{{period}}/{{councillor.id}}">Profil</a>
+        <b style="font-size: 25px;">{{councillor.firstName}} {{councillor.lastName}}</b> · <a href="/councillor/{{period}}/{{councillor.id}}">Profil</a> · <a href="/votes/councillors/{{period}}/{{councillor.id}}">Votes</a>
         <ul>
             <!-- <li><b>Id:</b> {{councillor.id}}</li>
             <li><b>Birth Date:</b> {{councillor.birthDate}}</li>

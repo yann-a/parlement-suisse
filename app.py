@@ -33,6 +33,27 @@ def handle_councillor(id, period=None):
     councillor = get_councillor(id)
     return render_template('councillor.html', councillor=councillor, period=period)
 
-@app.route('/votes/<councillor>')
-def handle_votes(councillor):
-    pass
+@app.route('/votes/affairs')
+@app.route('/votes/affairs/<period>')
+@app.route('/votes/affairs/<period>/<id>')
+def handle_votes_affairs(period=None, id=None):
+    if not period:
+        periods = get_legislative_periods()
+        return render_template('votes_affairs.html', periods=periods)
+    elif not id:
+        affairs = get_votes_affairs(period)
+        return render_template('votes_affairs_per_period.html', period=period, affairs=affairs)
+    else:
+        affair = get_votes_affair(id)
+        return render_template('votes_affair.html', period=period, affair=affair)
+
+@app.route('/affairs/<period>/<id>')
+def handle_affair(period, id):
+    affair = get_affair(id)
+    return render_template('affair.html', affair=affair)
+
+@app.route('/votes/councillors/<period>/<id>')
+@app.route('/votes/councillors/<period>/<id>/<page>')
+def handle_votes_councillors(period, id, page=1):
+    votes = get_votes_councillor(id, page)
+    return render_template('votes_councillor.html', period=period, id=id, page=page, votes=votes)
