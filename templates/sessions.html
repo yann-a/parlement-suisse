@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sessions
+{% endblock %}
+
+{% block activate_sessions %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sessions</li>
+    </ol>
+</nav>
+
+<ul>
+{% for session in sessions %}
+    <li id="{{session.code}}">
+        <h3>{{session.name}}</h3>
+        <ul>
+            <!-- <li><b>Id:</b> {{session.id}}</li>
+            <li><b>Code:</b> {{session.code}}</li>
+            <li><b>From:</b> {{session.from}}</li>
+            <li><b>To:</b> {{session.to}}</li> -->
+            {% for prop in session %}
+                <li><b>{{prop}}: </b> {{session[prop]}}</li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

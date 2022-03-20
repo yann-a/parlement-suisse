@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Councillors
+{% endblock %}
+
+{% block activate_councillors %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Parlementaires</li>
+    </ol>
+</nav>
+
+Législatures :
+<ul>
+{% for period in periods %}
+    <li><a href="/councillors/{{period.id}}">{{period.name}}</a>  ({{period.from}} - {{period.to}})</li>
+{% endfor %}
+</ul>
+{% endblock %}

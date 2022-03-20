@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Councillors
+{% endblock %}
+
+{% block activate_councillors %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/councillors">Parlementaires</a></li>
+        <li class="breadcrumb-item active">{{period}}e législalture</li>
+    </ol>
+</nav>
+
+<ul>
+{% for councillor in councillors %}
+    <li id="{{councillor.id}}">
+        <b style="font-size: 25px;">{{councillor.firstName}} {{councillor.lastName}}</b> · <a href="/councillor/{{period}}/{{councillor.id}}">Profil</a>
+        <ul>
+            <!-- <li><b>Id:</b> {{councillor.id}}</li>
+            <li><b>Birth Date:</b> {{councillor.birthDate}}</li>
+            <li><b>Gender: </b> {{councillor.gender}}</li>
+            <li><b>Canton: </b> {{councillor.canton.abbreviation}}</li>
+            <li><b>Groupe parlementaire: </b> {{councillor.faction.abbreviation}}</li>
+            <li><b>Parti: </b> {{councillor.party.abbreviation}}</li> -->
+            {% for prop in councillor %}
+                <li><b>{{prop}}: </b> {{councillor[prop]}}</li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
