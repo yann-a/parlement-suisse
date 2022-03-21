@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Affair
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">Affaires</li>
+        <li class="breadcrumb-item active" aria-current="page">{{affair.title}}</li>
+    </ol>
+</nav>
+
+<h3>{{affair.title}}</h3>
+<ul>
+    {% for prop in affair %}
+    <li><b>{{prop}}: </b> {{affair[prop]}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

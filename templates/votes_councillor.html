@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+Votes by councillor
+{% endblock %}
+
+{% block activate_councillors %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">Votes</li>
+        <li class="breadcrumb-item"><a href="/councillors">Councillors</a></li>
+        <li class="breadcrumb-item"><a href="/councillors/{{period}}">{{period}}e législature</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{votes.firstName}} {{votes.lastName}}</li>
+    </ol>
+</nav>
+
+<h3>{{votes.firstName}} {{votes.lastName}}</h3>
+<ul>
+    {% for prop in votes %}
+        {% if prop != 'affairVotes' %}
+        <li><b>{{prop}}: </b> {{votes[prop]}}</li>
+        {% endif %}
+    {% endfor %}
+    <nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+            <a href="/votes/councillors/{{period}}/{{id}}/{{(page | int) - 1}}" class="page-link">Previous</a>
+        </li>
+        <li class="page-item {% if not votes.affairVotes[-1].hasMorePages %}disabled{% endif %}">
+            <a href="/votes/councillors/{{period}}/{{id}}/{{(page | int) + 1}}" class="page-link">Next</a>
+        </li>
+    </ul>
+    </nav>
+
+    <li><b>Votes: </b>
+        <ul>
+            {% for vote in votes.affairVotes %}
+            <li><b>{{vote.affairTitle}}: </b>
+                <ul>
+                    {% for p in vote %}
+                        <li><b>{{p}}: </b> {{vote[p]}}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Votes by affairs
+{% endblock %}
+
+{% block activate_votes_affairs %}
+active
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">Votes</li>
+        <li class="breadcrumb-item"><a href="/votes/affairs">Affaires</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{period}}e législature</li>
+    </ol>
+</nav>
+
+<ul>
+{% for affair in affairs %}
+    <li id="{{affair.id}}">
+        <b style="font-size: 25px;">{{affair.title}}</b> · <a href="/affairs/{{period}}/{{affair.id}}">Affaire</a> · <a href="/votes/affairs/{{period}}/{{affair.id}}">Votes</a>
+        <ul>
+            {% for prop in affair %}
+                <li><b>{{prop}}: </b> {{affair[prop]}}</li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
