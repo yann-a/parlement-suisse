@@ -18,6 +18,16 @@ active
     </ol>
 </nav>
 
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+            <a href="/votes/affairs/{{period}}/page/{{(page | int) - 1}}" class="page-link">Previous</a>
+        </li>
+        <li class="page-item {% if not affairs[-1].hasMorePages %}disabled{% endif %}">
+            <a href="/votes/affairs/{{period}}/page/{{(page | int) + 1}}" class="page-link">Next</a>
+        </li>
+    </ul>
+</nav>
 <ul>
 {% for affair in affairs %}
     <li id="{{affair.id}}">

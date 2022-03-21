@@ -35,14 +35,15 @@ def handle_councillor(id, period=None):
 
 @app.route('/votes/affairs')
 @app.route('/votes/affairs/<period>')
+@app.route('/votes/affairs/<period>/page/<page>')
 @app.route('/votes/affairs/<period>/<id>')
-def handle_votes_affairs(period=None, id=None):
+def handle_votes_affairs(period=None, id=None, page=1):
     if not period:
         periods = get_legislative_periods()
         return render_template('votes_affairs.html', periods=periods)
     elif not id:
-        affairs = get_votes_affairs(period)
-        return render_template('votes_affairs_per_period.html', period=period, affairs=affairs)
+        affairs = get_votes_affairs(period, page)
+        return render_template('votes_affairs_per_period.html', period=period, page=page, affairs=affairs)
     else:
         affair = get_votes_affair(id)
         return render_template('votes_affair.html', period=period, affair=affair)
@@ -57,6 +58,10 @@ def handle_affair(period, id):
 def handle_votes_councillors(period, id, page=1):
     votes = get_votes_councillor(id, page)
     return render_template('votes_councillor.html', period=period, id=id, page=page, votes=votes)
+
+@app.route('/viz')
+def viz():
+    return render_template('viz.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
