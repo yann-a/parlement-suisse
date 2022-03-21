@@ -31,7 +31,7 @@ def handle_councillors(period=None):
 @app.route('/councillor/<period>/<id>')
 def handle_councillor(id, period=None):
     councillor = get_councillor(id)
-    return render_template('councillor.html', councillor=councillor, period=period
+    return render_template('councillor.html', councillor=councillor, period=period)
 
 @app.route('/votes/affairs')
 @app.route('/votes/affairs/<period>')
